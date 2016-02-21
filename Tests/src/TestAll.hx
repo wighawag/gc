@@ -53,6 +53,24 @@ class TestAll{
 		Assert.equals(0, gcUsage.numDeallocations);
 	}
 	
+	public function testMapIntIntClearViaNewMap(){
+		var test = {
+			map : new Map<Int,Int>()
+		}
+		
+		// test.map[0] = 1;	
+		// test.map[3] = 2;
+		// test.map[5] = 0;
+		var gcUsage = Gc.gatherGcUsageFor({
+			test.map = new Map<Int,Int>();
+			test.map = new Map<Int,Int>();
+		});
+		
+		Assert.equals(2, gcUsage.numAllocations);
+		Assert.equals(0, gcUsage.numReallocations);
+		Assert.equals(1, gcUsage.numDeallocations);
+	}
+	
 	
 	public static function main() {
 		var runner = new Runner();

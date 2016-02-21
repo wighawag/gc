@@ -74,15 +74,17 @@ class GcUsage{
 			numReallocations = 0;
 			numDeallocations = 0;
 			while (i<size) {
-				if (frame->allocation_data->at(i)==0) { // allocation
+				if (frame->allocation_data->at(i)==0) {
 					i+=5;
 					numAllocations++;
 				}
 				else if (frame->allocation_data->at(i)==1) { 
-					i+=2; numDeallocations ++; 
+					i+=2; 
+					numDeallocations ++; 
 				}
 				else if (frame->allocation_data->at(i)==2) {
-					i+=4; numReallocations ++; 
+					i+=4; 
+					numReallocations ++; 
 				}
 			}
 			return null();
