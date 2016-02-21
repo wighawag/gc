@@ -62,8 +62,11 @@ class TestAll{
 		// test.map[3] = 2;
 		// test.map[5] = 0;
 		var gcUsage = Gc.gatherGcUsageFor({
+			cpp.vm.Gc.run(true);
 			test.map = new Map<Int,Int>();
+			cpp.vm.Gc.run(true);
 			test.map = new Map<Int,Int>();
+			cpp.vm.Gc.run(true);
 		});
 		
 		Assert.equals(2, gcUsage.numAllocations);
