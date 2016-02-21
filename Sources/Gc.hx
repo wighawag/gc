@@ -1,7 +1,13 @@
 import haxe.macro.Expr;
-
+import haxe.macro.Context;
 class Gc{
 	macro public static function gatherGcUsageFor(expr : Expr) : Expr{
+		var pos = Context.currentPos();
+		if(!Context.defined("cpp") || !Context.defined("HXCPP_TELEMETRY") || !Context.defined("HXCPP_STACK_TRACE")){
+			Context.error("only cpp target with '-D HXCPP_TELEMETRY' and '-D HXCPP_STACK_TRACE' supported",pos);
+			return null;
+		}
+		
 		var newExpr = macro {
 		var __gcUsage = @:privateAccess new Gc.GcUsage();
 		@:privateAccess __gcUsage.begin();
@@ -41,6 +47,7 @@ class GcUsage{
 	}
 	
 	private function begin(){
+		cpp.vm.Gc.run(true);
 		threadNum = untyped  __global__.__hxcpp_hxt_start_telemetry(true, true);
 		untyped  __global__.__hxcpp_hxt_ignore_allocs(1);
 		cpp.vm.Gc.run(true);

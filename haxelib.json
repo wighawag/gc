@@ -1,0 +1,13 @@
+{
+	"name":"gc",
+	"license":"MIT",
+	"tags":["gc","hxcpp", "cpp", "allocation", "performance", "telemetry"],
+	"description":"gc tools, currently allow to gather gc usage via code",
+	"contributors":["wighawag"],
+	"releasenote":"first release",
+	"version":"0.1.0",
+	"url":"https://github.com/wighawag/gc",
+	"classPath":"Sources",
+	"dependencies":{
+	}
+}
