@@ -54,24 +54,22 @@ class TestAll{
 	}
 	
 	public function testMapIntIntClearViaNewMap(){
-		var test = {
-			map : new Map<Int,Int>()
+		var test : {map : Map<Int,Int>} = {
+			map : null
 		}
 		
-		// test.map[0] = 1;	
-		// test.map[3] = 2;
-		// test.map[5] = 0;
+		
 		var gcUsage = Gc.gatherGcUsageFor({
-			cpp.vm.Gc.run(true);
 			test.map = new Map<Int,Int>();
-			cpp.vm.Gc.run(true);
+			test.map[0] = 1;	
+		  test.map[3] = 2;
+		  test.map[5] = 0;
 			test.map = new Map<Int,Int>();
-			cpp.vm.Gc.run(true);
 		});
 		
-		Assert.equals(2, gcUsage.numAllocations);
+		Assert.equals(7, gcUsage.numAllocations);
 		Assert.equals(0, gcUsage.numReallocations);
-		Assert.equals(1, gcUsage.numDeallocations);
+		Assert.equals(2, gcUsage.numDeallocations);
 	}
 	
 	
